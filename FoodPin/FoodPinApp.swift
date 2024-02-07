@@ -25,7 +25,7 @@ struct FoodPinApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RestaurantListView()
         }
         .modelContainer(sharedModelContainer)
     }
