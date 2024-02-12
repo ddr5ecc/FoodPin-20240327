@@ -13,12 +13,27 @@ struct RestaurantListView: View {
     @Query private var items: [Item]
     
     var restaurantNames = ["Cafe Deadend", "Homei", "Teakha", "Cafe Loisl", "Petite Oyster", "For Kee Restaurant", "Po's Atelier", "Bourke Street Bakery", "Haigh's chocolate", "Palomino Espresso"]
+    var restaurantImages = ["cafedeadend", "homei", "teakha", "cafeloisl", "petiteoyster", "forkee", "posatelier", "bourkestreetbakery", "haigh", "palomino"]
     
     var body: some View {
         List {
             ForEach(restaurantNames.indices, id: \.self) { index in
-                Text(restaurantNames[index])
+                HStack(alignment: .top, spacing: 20) {
+                    Image(restaurantImages[index])
+                        .resizable()
+                        .cornerRadius(20)
+                    .frame(width: 120, height: 120)
+                    VStack(alignment: .leading) {
+                        Text(restaurantNames[index])
+                        Text("Type:")
+                            .font(.system(.body, design: .rounded))
+                        Text("Location:")
+                            .font(.system(.subheadline, design: .rounded))
+                            .foregroundColor(.gray)
+                    }
+                }
             }
+            .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
     }
@@ -41,7 +56,6 @@ struct RestaurantListView: View {
 
 #Preview {
     RestaurantListView()
+        .preferredColorScheme(.dark)
         .modelContainer(for: Item.self, inMemory: true)
 }
-
-
