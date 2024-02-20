@@ -55,6 +55,7 @@ struct BasicTextImageRow: View {
     var name: String
     var type: String
     var location: String
+    @State private var showOptions = false
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
@@ -73,6 +74,23 @@ struct BasicTextImageRow: View {
             }
             .padding(.horizontal)
             .padding(.bottom)
+        }
+        .onTapGesture{
+            showOptions.toggle()
+        }
+        .actionSheet(isPresented: $showOptions){
+            ActionSheet(title: Text("What do you want to do?"),
+                        message: nil,
+                        buttons: [
+                            .default(Text("Reserve a table")){
+                                
+                            },
+                            .default(Text(  "Mark as favorite")){
+                                    
+                            },
+                            .cancel()
+                            ])
+        
         }
     }
 }
