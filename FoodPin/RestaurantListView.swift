@@ -56,6 +56,7 @@ struct BasicTextImageRow: View {
     var type: String
     var location: String
     @State private var showOptions = false
+    @State private var showError = false
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
@@ -83,14 +84,20 @@ struct BasicTextImageRow: View {
                         message: nil,
                         buttons: [
                             .default(Text("Reserve a table")){
-                                
+                                self.showError.toggle()
                             },
-                            .default(Text(  "Mark as favorite")){
+                            .default(Text("Mark as favorite")){
                                     
                             },
                             .cancel()
                             ])
         
+        }
+        .alert(isPresented: $showError){
+            Alert(title: Text("Not yet available"),
+                  message: Text("Sorry, this feature is not available yet. Please retry later."),
+                  primaryButton: .default(Text("OK")),
+                  secondaryButton: .cancel())
         }
     }
 }
