@@ -16,11 +16,12 @@ struct RestaurantListView: View {
     var restaurantImages = ["cafedeadend", "homei", "teakha", "cafeloisl", "petiteoyster", "forkee", "posatelier", "bourkestreetbakery", "haigh", "palomino"]
     var restaurantTypes = ["placeholder", "placeholder", "placeholder", "placeholder", "placeholder", "placeholder", "placeholder", "placeholder", "placeholder", "placeholder"]
     var restaurantLocations = ["placeholder", "placeholder", "placeholder", "placeholder", "placeholder", "placeholder", "placeholder", "placeholder", "placeholder", "placeholder"]
+    @State var restaurantIsFavorites = Array(repeating: false, count:10)
     
     var body: some View {
         List {
             ForEach(restaurantNames.indices, id: \.self) { index in
-                BasicTextImageRow(imageName: restaurantImages[index], name: restaurantNames[index], type: restaurantTypes[index], location: restaurantLocations[index])
+                BasicTextImageRow(imageName: restaurantImages[index], name: restaurantNames[index], type: restaurantTypes[index], location: restaurantLocations[index], isFavorite: $restaurantIsFavorites[index])
             }
             .listRowSeparator(.hidden)
         }
@@ -57,6 +58,7 @@ struct BasicTextImageRow: View {
     var location: String
     @State private var showOptions = false
     @State private var showError = false
+    @Binding var isFavorite: Bool
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
@@ -72,6 +74,11 @@ struct BasicTextImageRow: View {
                 Text(location)
                     .font(.system(.subheadline, design: .rounded))
                     .foregroundColor(.gray)
+                if isFavorite {
+                    Spacer()
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.yellow)
+                }
             }
             .padding(.horizontal)
             .padding(.bottom)
@@ -87,7 +94,7 @@ struct BasicTextImageRow: View {
                                 self.showError.toggle()
                             },
                             .default(Text("Mark as favorite")){
-                                    
+                                self.isFavorite.toggle()
                             },
                             .cancel()
                             ])
