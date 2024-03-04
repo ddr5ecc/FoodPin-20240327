@@ -62,7 +62,7 @@ struct RestaurantListView: View {
     var body: some View {
         List {
             ForEach(restaurants.indices, id: \.self) { index in
-                BasicTextImageRow(imageName: restaurants[index].image, name: restaurants[index].name, type: restaurants[index].type, location: restaurants[index].location, isFavorite: $restaurants[index].isFavorite)
+                BasicTextImageRow(restaurant: $restaurants[index])
             }
             .listRowSeparator(.hidden)
         }
@@ -76,11 +76,6 @@ struct RestaurantListView_Previews: PreviewProvider{
         
         RestaurantListView()
             .preferredColorScheme(.dark)
-        
-        BasicTextImageRow(imageName: "cafedeadend", name: "Cafe Deadend", type: "Cafe", location: "Hong Kong", isFavorite: .constant(true))
-            .previewLayout(.sizeThatFits)
-        FullImageRow(imageName: "cafedeadend", name: "Cafe Deadend", type: "Cafe", location: "Hong Kong", isFavorite: .constant(true))
-            .previewLayout(.sizeThatFits)
     }
 }
 /*
@@ -97,29 +92,33 @@ struct RestaurantListView_Previews: PreviewProvider{
 */
 struct BasicTextImageRow: View {
     
+    @Binding var restaurant: Restaurant
+    /*
     var imageName: String
     var name: String
     var type: String
     var location: String
+    @Binding var isFavorite: Bool
+    */
     @State private var showOptions = false
     @State private var showError = false
-    @Binding var isFavorite: Bool
+ 
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
-            Image(imageName)
+            Image(restaurant.image)
                 .resizable()
                 .frame(height: 200)
                 .cornerRadius(20)
             VStack(alignment: .leading) {
-                Text(name)
+                Text(restaurant.name)
                     .font(.system(.title2, design: .rounded))
-                Text(type)
+                Text(restaurant.type)
                     .font(.system(.body, design: .rounded))
-                Text(location)
+                Text(restaurant.location)
                     .font(.system(.subheadline, design: .rounded))
                     .foregroundColor(.gray)
-                if isFavorite {
+                if restaurant.isFavorite {
                     Spacer()
                     Image(systemName: "heart.fill")
                         .foregroundColor(.yellow)
@@ -139,7 +138,7 @@ struct BasicTextImageRow: View {
                                 self.showError.toggle()
                             },
                             .default(Text("Mark as favorite")){
-                                self.isFavorite.toggle()
+                                self.restaurant.isFavorite.toggle()
                             },
                             .cancel()
                             ])
