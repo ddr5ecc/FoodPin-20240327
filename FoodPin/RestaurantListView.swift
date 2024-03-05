@@ -63,7 +63,22 @@ struct RestaurantListView: View {
         List {
             ForEach(restaurants.indices, id: \.self) { index in
                 BasicTextImageRow(restaurant: $restaurants[index])
+                    .swipeActions(edge: .leading, allowsFullSwipe: false, content:{
+                        Button{
+                            
+                        } label: {
+                            Image(systemName: "heart")
+                            .tint(.green)
+                        }
+                        Button{
+                            
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                        .tint(.orange)
+                    })
             }
+            .onDelete(perform: {indexSet in restaurants.remove(atOffsets: indexSet)})
             .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
@@ -127,6 +142,25 @@ struct BasicTextImageRow: View {
             .padding(.horizontal)
             .padding(.bottom)
         }
+        .contextMenu{
+            Button(action: {
+                self.showError.toggle()
+            }) {
+                HStack{
+                    Text("Reserve a table")
+                    Image(systemName: "phone")
+                }
+            }
+            Button(action: {
+                self.restaurant.isFavorite.toggle()
+            }) {
+                HStack{
+                    Text(restaurant.isFavorite ? "Remove from favorites" : "Mark as favorite")
+                    Image(systemName: "heart")
+                }
+            }
+        }
+        /*
         .onTapGesture{
             showOptions.toggle()
         }
@@ -144,6 +178,7 @@ struct BasicTextImageRow: View {
                             ])
         
         }
+        */
         .alert(isPresented: $showError){
             Alert(title: Text("Not yet available"),
                   message: Text("Sorry, this feature is not available yet. Please retry later."),
