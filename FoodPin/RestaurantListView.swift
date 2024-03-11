@@ -60,28 +60,32 @@ struct RestaurantListView: View {
     }
     */
     var body: some View {
-        List {
-            ForEach(restaurants.indices, id: \.self) { index in
-                BasicTextImageRow(restaurant: $restaurants[index])
-                    .swipeActions(edge: .leading, allowsFullSwipe: false, content:{
-                        Button{
-                            
-                        } label: {
-                            Image(systemName: "heart")
-                            .tint(.green)
-                        }
-                        Button{
-                            
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                        }
-                        .tint(.orange)
-                    })
+        NavigationView {
+            List {
+                ForEach(restaurants.indices, id: \.self) { index in
+                    BasicTextImageRow(restaurant: $restaurants[index])
+                        .swipeActions(edge: .leading, allowsFullSwipe: false, content:{
+                            Button{
+                                
+                            } label: {
+                                Image(systemName: "heart")
+                                .tint(.green)
+                            }
+                            Button{
+                                
+                            } label: {
+                                Image(systemName: "square.and.arrow.up")
+                            }
+                            .tint(.orange)
+                        })
+                }
+                .onDelete(perform: {indexSet in restaurants.remove(atOffsets: indexSet)})
+                .listRowSeparator(.hidden)
             }
-            .onDelete(perform: {indexSet in restaurants.remove(atOffsets: indexSet)})
-            .listRowSeparator(.hidden)
+            .listStyle(.plain)
+            .navigationTitle("FoodPin")
+            .navigationBarTitleDisplayMode(.automatic)
         }
-        .listStyle(.plain)
     }
 }
 
