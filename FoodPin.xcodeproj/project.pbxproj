@@ -17,6 +17,7 @@
 		2D1DA1432B734631005D4AB8 /* FoodPinUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1DA1422B734631005D4AB8 /* FoodPinUITestsLaunchTests.swift */; };
 		2D78784F2B9D7B1800A4874A /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D78784E2B9D7B1800A4874A /* ActivityView.swift */; };
 		2D9D7E452B92E92C00F7CA48 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9D7E442B92E92C00F7CA48 /* Restaurant.swift */; };
+		2DAE0C002B9FECBA004C4B4A /* RestaurantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE0BFF2B9FECBA004C4B4A /* RestaurantDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		2D1DA1422B734631005D4AB8 /* FoodPinUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodPinUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2D78784E2B9D7B1800A4874A /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		2D9D7E442B92E92C00F7CA48 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		2DAE0BFF2B9FECBA004C4B4A /* RestaurantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				2D1DA12B2B734631005D4AB8 /* Preview Content */,
 				2D9D7E442B92E92C00F7CA48 /* Restaurant.swift */,
 				2D78784E2B9D7B1800A4874A /* ActivityView.swift */,
+				2DAE0BFF2B9FECBA004C4B4A /* RestaurantDetailView.swift */,
 			);
 			path = FoodPin;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			files = (
 				2D9D7E452B92E92C00F7CA48 /* Restaurant.swift in Sources */,
 				2D1DA1262B734630005D4AB8 /* RestaurantListView.swift in Sources */,
+				2DAE0C002B9FECBA004C4B4A /* RestaurantDetailView.swift in Sources */,
 				2D1DA1282B734630005D4AB8 /* Item.swift in Sources */,
 				2D78784F2B9D7B1800A4874A /* ActivityView.swift in Sources */,
 				2D1DA1242B734630005D4AB8 /* FoodPinApp.swift in Sources */,
