@@ -11,14 +11,7 @@ import SwiftData
 struct RestaurantListView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-    /*
-    var restaurantNames = ["Cafe Deadend", "Homei", "Teakha", "Cafe Loisl", "Petite Oyster", "For Kee Restaurant", "Po's Atelier", "Bourke Street Bakery", "Haigh's chocolate", "Palomino Espresso"]
-    var restaurantImages = ["cafedeadend", "homei", "teakha", "cafeloisl", "petiteoyster", "forkee", "posatelier", "bourkestreetbakery", "haigh", "palomino"]
-    var restaurantTypes = ["Coffee & Tea Shop", "Cafe", "Tea House", "Austrian / Casual Drink", "French", "Bakery", "Bakery", "Chocolate", "Cafe", "American / Seafood"]
-    var restaurantLocations = ["Hong Kong", "Hong Kong", "Hong Kong", "Hong Kong", "Hong Kong", "Hong Kong", "Hong Kong", "Sydney", "Sydney", "Sydney"]
-    @State var restaurantIsFavorites = Array(repeating: false, count:10)
-    */
-    
+
     @State var restaurants = [
     Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", location:
     "Hong Kong", image: "cafedeadend", isFavorite: false),
@@ -48,22 +41,14 @@ struct RestaurantListView: View {
     Restaurant(name: "Donostia", type: "Spanish", location: "London", image: "donostia", isFavorite: false),
     Restaurant(name: "Royal Oak", type: "British", location: "London", image: "royaloak", isFavorite: false),
     Restaurant(name: "CASK Pub and Kitchen", type: "Thai", location: "London", image: "cask", isFavorite: false)]
-    /*
-    var body: some View {
-        List {
-            ForEach(restaurantNames.indices, id: \.self) { index in
-                BasicTextImageRow(imageName: restaurantImages[index], name: restaurantNames[index], type: restaurantTypes[index], location: restaurantLocations[index], isFavorite: $restaurantIsFavorites[index])
-            }
-            .listRowSeparator(.hidden)
-        }
-        .listStyle(.plain)
-    }
-    */
+
     var body: some View {
         NavigationView {
             List {
                 ForEach(restaurants.indices, id: \.self) { index in
-                    BasicTextImageRow(restaurant: $restaurants[index])
+                    NavigationLink(destination: RestaurantDetailView(restaurant: restaurants[index])){
+                        BasicTextImageRow(restaurant: $restaurants[index])
+                    }
                         .swipeActions(edge: .leading, allowsFullSwipe: false, content:{
                             Button{
                                 
@@ -97,28 +82,10 @@ struct RestaurantListView_Previews: PreviewProvider{
             .preferredColorScheme(.dark)
     }
 }
-/*
-#Preview {
-    RestaurantListView()
-        .preferredColorScheme(.dark)
-        .modelContainer(for: Item.self, inMemory: true)
-    
-    BasicTextImageRow(imageName: "cafedeadend", name: "Cafe Deadend", type: "Cafe", location: "Hong Kong", isFavorite: .constant(true))
-        .previewLayout(.sizeThatFits)
-    FullImageRow(imageName: "cafedeadend", name: "Cafe Deadend", type: "Cafe", location: "Hong Kong", isFavorite: .constant(true))
-        .previewLayout(.sizeThatFits)
-}
-*/
+
 struct BasicTextImageRow: View {
     
     @Binding var restaurant: Restaurant
-    /*
-    var imageName: String
-    var name: String
-    var type: String
-    var location: String
-    @Binding var isFavorite: Bool
-    */
     @State private var showOptions = false
     @State private var showError = false
  
@@ -173,25 +140,6 @@ struct BasicTextImageRow: View {
             }
             
         }
-        /*
-        .onTapGesture{
-            showOptions.toggle()
-        }
-        .actionSheet(isPresented: $showOptions){
-            ActionSheet(title: Text("What do you want to do?"),
-                        message: nil,
-                        buttons: [
-                            .default(Text("Reserve a table")){
-                                self.showError.toggle()
-                            },
-                            .default(Text("Mark as favorite")){
-                                self.restaurant.isFavorite.toggle()
-                            },
-                            .cancel()
-                            ])
-        
-        }
-        */
         .alert(isPresented: $showError){
             Alert(title: Text("Not yet available"),
                   message: Text("Sorry, this feature is not available yet. Please retry later."),
