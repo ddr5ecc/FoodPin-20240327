@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RestaurantDetailView: View {
+    @Environment(\.dismiss) var dismiss
     var restaurant: Restaurant
     var body: some View {
         ZStack(alignment: .top) {
@@ -31,6 +32,16 @@ struct RestaurantDetailView: View {
                     .font(.system(.headline, design: .rounded))
                     .foregroundColor(.white)
                 }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .navigationBarLeading){
+                Button(action:{
+                    dismiss()
+                }) {
+                    Text("\(Image(systemName: "chevrom.left")) \(restaurant.name)")
+                }
+            }
         }
     }
 }
