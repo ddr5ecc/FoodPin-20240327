@@ -38,6 +38,24 @@ struct RestaurantDetailView: View {
                         .foregroundColor(.white)
                         .padding()
                     }
+                Text("PLACEHOLDER"/*restaurant.description*/)
+                   .padding()
+                HStack(alignment: .top){
+                    VStack(alignment: .leading){
+                        Text("ADDRESS")
+                            .font(.system(.headline, design: .rounded))
+                        Text(restaurant.location)
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                    
+                    VStack(alignment: .leading){
+                        Text("PHONE")
+                            .font(.system(.headline, design: .rounded))
+                        Text("PLACEHOLDER"/*restaurant.phone*/)
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.horizontal)
             }
         }
         .navigationBarBackButtonHidden(true)
