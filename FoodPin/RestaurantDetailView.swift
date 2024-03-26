@@ -68,6 +68,7 @@ struct RestaurantDetailView: View {
                 }
             }
         }
+        .ignoresSafeArea()
     }
 }
 
