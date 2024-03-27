@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct RestaurantDetailView: View {
+
+    // 若 dismiss = true, 回到上一個 View
     @Environment(\.dismiss) var dismiss
+    
+    
     var restaurant: Restaurant
+    
     var body: some View {
         ScrollView() {
             VStack(alignment: .leading){
@@ -59,10 +64,14 @@ struct RestaurantDetailView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+                // 不顯示預設的上一頁按鈕
+        
+        // 自訂上一頁的按鈕
         .toolbar{
             ToolbarItem(placement: .navigationBarLeading){
                 Button(action:{
                     dismiss()
+                        // 按下的時候，執行 dismiss(), 回到上一個 View
                 }) {
                     Text("\(Image(systemName: "chevron.left")) \(restaurant.name)")
                 }
