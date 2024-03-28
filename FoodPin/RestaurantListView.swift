@@ -10,9 +10,12 @@ import SwiftUI
 import SwiftData
 
 struct RestaurantListView: View {
+    // ??
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
+
+    // 以下設定餐廳陣列，目前陣列無法更動
     @State var restaurants = [
     Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", location:
     "Hong Kong", image: "cafedeadend", isFavorite: false),
@@ -44,6 +47,8 @@ struct RestaurantListView: View {
     Restaurant(name: "CASK Pub and Kitchen", type: "Thai", location: "London", image: "cask", isFavorite: false)]
 
     var body: some View {
+
+        // 將整個 View 裝在 NavigationView 之內，就可以導航了
         NavigationView {
             List {
                 ForEach(restaurants.indices, id: \.self) { index in
@@ -76,8 +81,8 @@ struct RestaurantListView: View {
             .navigationTitle("FoodPin")
             .navigationBarTitleDisplayMode(.automatic)
         }
-    }
-}
+    } // Navigation View 結束
+} // body 結束
 
 struct RestaurantListView_Previews: PreviewProvider{
     static var previews: some View{
