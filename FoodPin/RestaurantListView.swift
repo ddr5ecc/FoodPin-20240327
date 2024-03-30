@@ -51,10 +51,14 @@ struct RestaurantListView: View {
         // 將整個 View 裝在 NavigationView 之內，就可以導航了
         NavigationView {
             List {
+                // ForEach 重覆呼叫每個 View 
                 ForEach(restaurants.indices, id: \.self) { index in
                     ZStack {
+                        // 包在 NavigationLink 之內的就變成了超鏈結，可以往下一層 View 前進
+                        // 最底層是鏈結
+                        // 往上一層才是影像與文字
                         NavigationLink(destination: RestaurantDetailView(restaurant: restaurants[index])){
-                            EmptyView()
+                            EmptyView() // 這個 EmptyView() 做什麼用? 
                         }
                         .opacity(0)
                             .swipeActions(edge: .leading, allowsFullSwipe: false, content:{
@@ -72,9 +76,11 @@ struct RestaurantListView: View {
                                 .tint(.orange)
                         })
                         BasicTextImageRow(restaurant: $restaurants[index])
+                            // 後方有定義，這是一個 View, 包含影像與文字
                     }
                 }
                 .onDelete(perform: {indexSet in restaurants.remove(atOffsets: indexSet)})
+                    // 移除 restaurant List 的該元素
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
