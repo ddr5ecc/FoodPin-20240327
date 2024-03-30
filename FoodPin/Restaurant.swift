@@ -8,6 +8,7 @@
 import Foundation
 
 // 建立Restaurant 物件
+// 看來慣例是將物件獨立於一個檔案之中，不與主 View 干擾
 
 struct Restaurant {
     var name: String
