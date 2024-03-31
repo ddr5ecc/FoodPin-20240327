@@ -192,6 +192,8 @@ struct BasicTextImageRow: View {    // 與函數不同，這邊並不寫明要�
     }
 }
 
+// 這邊宣告 FullImageRow, 在哪裡使用? 
+// 看起來是以前用的 View, 現在已被重寫過了
 struct FullImageRow: View {
     
     var imageName: String
