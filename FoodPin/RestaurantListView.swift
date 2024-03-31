@@ -55,13 +55,14 @@ struct RestaurantListView: View {
                 ForEach(restaurants.indices, id: \.self) { index in
                     ZStack {
                         // 包在 NavigationLink 之內的就變成了超鏈結，可以往下一層 View 前進
-                        // 最底層是鏈結
-                        // 往上一層才是影像與文字
+                        // 最底層是 NavigationLink
+                        // 往上一層才是影像與文字，並非包在NavigationLink之中
                         NavigationLink(destination: RestaurantDetailView(restaurant: restaurants[index])){
                             EmptyView() // 這個 EmptyView() 做什麼用? 
                         }
                         .opacity(0)
-                            .swipeActions(edge: .leading, allowsFullSwipe: false, content:{
+                        .swipeActions(edge: .leading, allowsFullSwipe: false, content:{
+                            // 自左向右滑物件出現以下按鈕，指定兩個按鈕
                                 Button{
                                     
                                 } label: {
@@ -80,7 +81,7 @@ struct RestaurantListView: View {
                     }
                 }
                 .onDelete(perform: {indexSet in restaurants.remove(atOffsets: indexSet)})
-                    // 移除 restaurant List 的該元素
+                    // 自右向左滑，移除 restaurant List 的該元素
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
