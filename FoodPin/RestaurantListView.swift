@@ -79,6 +79,8 @@ struct RestaurantListView: View {
                         })
                         BasicTextImageRow(restaurant: $restaurants[index])
                             // 後方有定義，這是一個 View, 包含影像與文字
+                            // 呼叫 View 的方式可以讓程式更易閱讀
+                            // 要列出什麼就直接寫在 View 之內就好
                     }
                 }
                 .onDelete(perform: {indexSet in restaurants.remove(atOffsets: indexSet)})
@@ -103,6 +105,7 @@ struct RestaurantListView_Previews: PreviewProvider{
     }
 }
 
+// 每一列要顯示什麼，全部定義在下面這個 struct
 struct BasicTextImageRow: View {
     
     @Binding var restaurant: Restaurant
