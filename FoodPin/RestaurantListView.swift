@@ -78,6 +78,7 @@ struct RestaurantListView: View {
                                 .tint(.orange)
                         })
                         BasicTextImageRow(restaurant: $restaurants[index])
+                            // 將傳入 restaurant struct(物件)
                             // 後方有定義，這是一個 View, 包含影像與文字
                             // 呼叫 View 的方式可以讓程式更易閱讀
                             // 要列出什麼就直接寫在 View 之內就好
@@ -105,17 +106,18 @@ struct RestaurantListView_Previews: PreviewProvider{
     }
 }
 
-// 每一列要顯示什麼，全部定義在下面這個 struct
-struct BasicTextImageRow: View {
+// 每一列要如何顯示餐廳，全部定義在下面這個 struct
+// 呼叫的時候會接收 restaurant struct 做為參數，但下方設定時只用 var 宣告
+struct BasicTextImageRow: View {    // 與函數不同，這邊並不寫明要接收參數
     
-    @Binding var restaurant: Restaurant
-    @State private var showOptions = false
-    @State private var showError = false
+    @Binding var restaurant: Restaurant        // 雙向鏈結餐廳物件，我猜接收參數與這一行有關
+    @State private var showOptions = false    // 是否顯示 Options
+    @State private var showError = false    // 是否顯示 Error
  
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
-            Image(restaurant.image)
+            Image(restaurant.image)    // 取得餐廳物件的影像
                 .resizable()
                 .frame(height: 200)
                 .cornerRadius(20)
@@ -127,7 +129,7 @@ struct BasicTextImageRow: View {
                 Text(restaurant.location)
                     .font(.system(.subheadline, design: .rounded))
                     .foregroundColor(.gray)
-                if restaurant.isFavorite {
+                if restaurant.isFavorite {    // 有條件顯示愛心
                     Spacer()
                     Image(systemName: "heart.fill")
                         .foregroundColor(.yellow)
@@ -136,9 +138,11 @@ struct BasicTextImageRow: View {
             .padding(.horizontal)
             .padding(.bottom)
         }
+        
+        // 長按餐廳物件的動作，依附在整個 HStack, 這樣按在哪裡都會出現子選單
         .contextMenu{
             Button(action: {
-                self.showError.toggle()
+                self.showError.toggle()    // 因為還沒寫好因此秀出錯誤訊息
             }) {
                 HStack{
                     Text("Reserve a table")
@@ -163,15 +167,21 @@ struct BasicTextImageRow: View {
             }
             
         }
+
+        // 在選單中有指定 $showError, 使用 .alert 來叫出警告視窗，依附在 HStack
         .alert(isPresented: $showError){
             Alert(title: Text("Not yet available"),
                   message: Text("Sorry, this feature is not available yet. Please retry later."),
                   primaryButton: .default(Text("OK")),
                   secondaryButton: .cancel())
         }
+
+        // 自下方拉出 Action Sheet, 並有其他功能可選
         .sheet(isPresented: $showOptions){
             let defaultText = "Just checking in at \(restaurant.name)"
-            
+                // 顯示正常，但只能被…拷貝嗎? 
+
+            // 以下的部分並沒有顯示出來，是 UIImage 設定錯誤嗎? 
             if let imageToShare = UIImage(named: restaurant.image){
                 ActivityView(activityItems: [defaultText, imageToShare])
             }
