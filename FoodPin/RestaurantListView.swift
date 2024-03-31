@@ -63,6 +63,7 @@ struct RestaurantListView: View {
                         .opacity(0)
                         .swipeActions(edge: .leading, allowsFullSwipe: false, content:{
                             // 自左向右滑物件出現以下按鈕，指定兩個按鈕
+                            // 依附NavigationLink
                                 Button{
                                     
                                 } label: {
@@ -82,8 +83,10 @@ struct RestaurantListView: View {
                 }
                 .onDelete(perform: {indexSet in restaurants.remove(atOffsets: indexSet)})
                     // 自右向左滑，移除 restaurant List 的該元素
+                    // 依附於 ForEach
                 .listRowSeparator(.hidden)
             }
+            // 以下三點是在NavigationView之內，不是依附
             .listStyle(.plain)
             .navigationTitle("FoodPin")
             .navigationBarTitleDisplayMode(.automatic)
